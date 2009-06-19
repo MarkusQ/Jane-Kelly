@@ -1,0 +1,25 @@
+#
+#  Weighted rules
+#
+A_feature.new {
+    class Rule
+        attr_reader :weight
+        original_init = instance_method(:initialize)
+        define_method(:initialize) do |pattern,weight|
+            @weight = weight
+            original_init pattern
+            end
+        def score_for(s)
+            matches?(s) ? weight : 0
+            end
+        Score_prefix = /(\d+): (.*$)/
+        def self.from_string(s)
+            if s =~ Score_prefix
+                 new(Regexp.new($2),$1)
+               else
+                 new(Regexp.new(s),1)
+               end
+            end
+        end
+    }
+

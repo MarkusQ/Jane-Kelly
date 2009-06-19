@@ -1,0 +1,6 @@
+
+A_feature.new {
+    add_commandline_option('-t',"Set threshold",Integer) { |i| $threhold = i }
+    }
+
+

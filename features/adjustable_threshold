@@ -1,0 +1,11 @@
+
+A_feature.new {
+    $threshold = 1
+    add_commandline_option('-t',"Set threshold",Integer) { |i| $threshold = i }
+    def acceptable?(s)
+        Rule.total_score_for(s) < $threshold
+        end
+    }
+
+
+

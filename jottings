@@ -1,0 +1,81 @@
+
+
+
+
+  1. stream of characters.
+  2. stream of (nested, possibly tagged) chunks via salience
+  3. by default, for each chunk
+     a. break into tokens & chunks
+     b. apply patterns to make tree
+     c. convert to message passing hierachy
+
+
+3a. By character compatibility or...?
+3b. Maybe skip 3a and do this directly with a PEG?
+3c. Identifier ambiguity?
+
+For 3c:
+
+    Identifiers are messages to be sent to objects.
+    Variable refs are messages to the scope hierarchy
+    But assignments are messages sent to identifiers, to add themselves to the hierarchy
+
+    dist := p.x^2 + the square of p's y
+
+    :=
+        'dist'
+        +
+            ^
+                .
+                    'p'
+                    'x'
+                2
+            .
+                .
+                    'p'
+                    'y'
+                'square'
+
+
+    (:=,'dist',(+,(^,(.,'p','x'),2),(.,(.,'p','y'),'square'))
+           ^             ^                 ^
+           |             +-----------------+------- look up in scope
+           +--------------------------------------- add to scope
+
+So identifiers "evaluate" to themselves, and respond to the messages ':=' and '.' via the scope.
+
+What about methods?
+
+   obj.meth arg_tupple
+
+does this resolve to 
+
+   bound_func arg_tupple
+
+and then to
+
+   return_value
+
+or is it a send-with-args from the start?
+
+The former has the advantages that 1) you can get the methods easily and 2) you can defer the calling 
+easily.  But 0-arity functions get awkward (e.g. p.x()), making the most common case the most awkward.  
+On the other hand, making it a method call means that things like
+
+    p.a-8 
+
+are ambigious.  Does it mean:
+
+    p.a(-8)
+
+or
+
+    (p.a)-8
+
+The neo-ruby solution, requiring parins for all parameter lists, is relatively straight forward but not 
+very sexy.
+
+
+
+
+

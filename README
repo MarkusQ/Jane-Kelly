@@ -1,0 +1,23 @@
+This code was written to accompany a presentation at OS Bridge '09 in 
+Portland Oregon.  Although it all runs it is not intended for use in any 
+serious capacity (you know the warning about not using some software if
+you are operating a Nuclear Power Station or controlling Critical Life 
+Support Systems?  Well, this is like that but you shouldn't you it to run
+an electric can opener).
+
+This code was written for people to learn from.
+
+What you learn is up to you.
+
+Slides from the presentation can be found at 
+    http://youell.com/matt/osb09/dragons.odp
+
+The program notes are here:
+    http://opensourcebridge.org/sessions/25
+
+A blog about it:
+    http://www.cuberick.com/2009/06/meta-programming-with-barf-bag.html
+
+And a related presentation that had a pirate theme:
+    http://github.com/MarkusQ/the-ledgend-of-scurvy-matt/tree/master
+

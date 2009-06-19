@@ -1,0 +1,51 @@
+
+require "first_class_features"
+
+class Rule
+    attr_reader :pattern
+    def initialize(pattern)
+        @pattern = pattern
+        end
+    def matches?(s)
+        s =~ pattern
+        end
+    def score_for(s)
+        matches?(s) ? 1 : 0
+        end
+    def self.total_score_for(s)
+        $rules.collect { |r| r.score_for(s) }.sum
+        end
+    def self.from_string(s)
+        new(Regexp.new(s))
+        end
+    end
+
+def parse_options
+    require 'optparse'
+    option_parser = OptionParser.new { |op|
+        op.on('-f FEATURE_NAME',"Add feature",String) { |feature| 
+            A_feature.from_a_file(feature).install(:option_parser => op)
+            }
+        op.on('-h',"Help")               {           puts op; abort }
+        }
+    command,*args = *option_parser.parse(ARGV)
+    end
+
+$rules = []
+def read_rules
+    File.foreach("bs_rules") { |line| 
+        line.chomp!
+        $rules << Rule.from_string(line) unless line.empty?
+        }
+    end
+
+def acceptable?(s)
+    Rule.total_score_for(s) < 1
+    end
+
+parse_options
+read_rules
+while s = STDIN.gets
+    puts s if acceptable?(s)
+    end
+

@@ -1,0 +1,16 @@
+#include <string>
+using namespace std;
+
+class BendyNumber
+{
+	int value;
+	
+	public:
+	
+	BendyNumber();
+
+	void operator=(int val);
+
+	string operator/(int val);
+};
+
